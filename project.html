@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>WinWheel</title>
+    <script src='Winwheel.js'></script>
+    <link rel="stylesheet" href="project.css" />
+
+  </head>
+
+<body >
+  <div class="jumbotron text-center pt-4" style="background-color: #fff9d7;" >
+   <h1 style="margin-left: 375px; margin-bottom: -20px; font-weight: bold;">BIENVENUE A LA ROULETTE </h1>
+    <div style="margin-left: 430px; margin-top: 20px; margin-bottom: -190px;" >
+        <img src="background.jpg" alt="" width="80%" height="240px"  >
+    </div>
+    <div class="row" >
+      <div class="col-sm-4" style="margin-top: -90px;">
+        <div id="canvasContainer">
+          <canvas id='canvas' width='600' height='420'>
+          </canvas>  
+          <img id="prizePointer" src="point.png" alt="V" />
+        </div>
+
+      <script>
+        let theWheel = new Winwheel({
+        'canvasId'      : 'canvas',
+        'numSegments'   : 37,
+        'textAlignment' : 'outer',
+        'textMargin'    : 20,
+        'textFontFamily': 'courrier',
+        'textDirection' : 'reversed',
+        'segments'      : 
+        [
+            {'fillStyle' : '#fff9d7',  'text' : '0', 'strokeStyle' : 'black'},
+            {'fillStyle' : 'red',  'text' : '1', 'strokeStyle' : 'red'},
+            {'fillStyle' : 'white',  'text' : '2', 'strokeStyle' : 'white'},
+            {'fillStyle' : 'red',  'text' : '3', 'strokeStyle' : 'red'},
+            {'fillStyle' : 'white',  'text' : '4', 'strokeStyle' : 'white'},
+            {'fillStyle' : 'red',  'text' : '5', 'strokeStyle' : 'red'},
+            {'fillStyle' : 'white',  'text' : '6', 'strokeStyle' : 'white'},
+            {'fillStyle' : 'red',  'text' : '7', 'strokeStyle' : 'red'},
+            {'fillStyle' : 'white',  'text' : '8', 'strokeStyle' : 'white'},
+            {'fillStyle' : 'red',  'text' : '9', 'strokeStyle' : 'red'},
+            {'fillStyle' : 'white',  'text' : '10', 'strokeStyle' : 'white'},
+            {'fillStyle' : 'red',  'text' : '11', 'strokeStyle' : 'red'},
+            {'fillStyle' : 'white',  'text' : '12', 'strokeStyle' : 'white'},
+            {'fillStyle' : 'red',  'text' : '13', 'strokeStyle' : 'red'},
+            {'fillStyle' : 'white',  'text' : '14', 'strokeStyle' : 'white'},
+            {'fillStyle' : 'red',  'text' : '15', 'strokeStyle' : 'red'},
+            {'fillStyle' : 'white',  'text' : '16', 'strokeStyle' : 'white'},
+            {'fillStyle' : 'red',  'text' : '17', 'strokeStyle' : 'red'},
+            {'fillStyle' : 'white',  'text' : '18', 'strokeStyle' : 'white'},
+            {'fillStyle' : 'red',  'text' : '19', 'strokeStyle' : 'red'},
+            {'fillStyle' : 'white',  'text' : '20', 'strokeStyle' : 'white'},
+            {'fillStyle' : 'red',  'text' : '21', 'strokeStyle' : 'red'},
+            {'fillStyle' : 'white',  'text' : '22', 'strokeStyle' : 'white'},
+            {'fillStyle' : 'red',  'text' : '23', 'strokeStyle' : 'red'},
+            {'fillStyle' : 'white',  'text' : '24', 'strokeStyle' : 'white'},
+            {'fillStyle' : 'red',  'text' : '25', 'strokeStyle' : 'red'},
+            {'fillStyle' : 'white',  'text' : '26', 'strokeStyle' : 'white'},
+            {'fillStyle' : 'red',  'text' : '27', 'strokeStyle' : 'red'},
+            {'fillStyle' : 'white',  'text' : '28', 'strokeStyle' : 'white'},
+            {'fillStyle' : 'red',  'text' : '29', 'strokeStyle' : 'red'},
+            {'fillStyle' : 'white',  'text' : '30', 'strokeStyle' : 'white'},
+            {'fillStyle' : 'red',  'text' : '31', 'strokeStyle' : 'red'},
+            {'fillStyle' : 'white',  'text' : '32', 'strokeStyle' : 'white'},
+            {'fillStyle' : 'red',  'text' : '33', 'strokeStyle' : 'red'},
+            {'fillStyle' : 'white',  'text' : '34', 'strokeStyle' : 'white'},
+            {'fillStyle' : 'red',  'text' : '35', 'strokeStyle' : 'red'},
+            {'fillStyle' : 'white',  'text' : '36', 'strokeStyle' : 'black'}
+        ],
+        'animation' :
+        {
+            'type'     : 'spinToStop',  // Type of animation.
+            'duration' : 2,             // How long the animation is to take in seconds.
+            'spins'    : 15,
+            'callbackFinished' : 'alertPrize()',
+        },
+        'outerRadius'  : 200,    
+        'innerRadius'   : 40,
+        'lineWidth'   : 2,
+        'centerX'    : 250, 
+        'centerY'    : 201
+    });
+
+    
+    var valuese = 1000
+    function alertPrize()
+    {
+            // Call getIndicatedSegment() function to return pointer to the segment pointed to on wheel.
+            let winningSegment = theWheel.getIndicatedSegment();
+            var select = document.querySelector('select')
+            var input = document.querySelector('input')
+            var text = document.getElementById('text')
+            var col = document.getElementById('col')
+            var index = select.selectedIndex 
+            var random = parseInt(winningSegment.text)
+            var price = input.value
+
+            if(price > valuese || price < 0)  
+            {
+                col.innerHTML = ""
+                if(col.classList.contains("alert-warning"))
+                    {
+                      col.classList.remove("alert-warning")
+                    }
+                    if(col.classList.contains("alert-danger"))
+                    {
+                      col.classList.remove("alert-danger")
+                    }
+                    if(col.classList.contains("alert-success"))
+                    {
+                      col.classList.remove("alert-success")
+                    }
+                col.classList.add('alert')
+                col.classList.add('alert-danger')
+                col.innerHTML = "Vous n'avez pas assez de monnaie ou  valeur insaisissable"
+            }else{
+                col.innerHTML = ""
+                if(random === index && (random === 0 || random === 1) && price != 0)
+                {
+                    col.innerHTML = ""
+                    if(col.classList.contains("alert-warning"))
+                    {
+                      col.classList.remove("alert-warning")
+                    }
+                    if(col.classList.contains("alert-danger"))
+                    {
+                      col.classList.remove("alert-danger")
+                    }
+                    if(col.classList.contains("alert-success"))
+                    {
+                      col.classList.remove("alert-success")
+                    }
+                    col.classList.add('alert')
+                    col.classList.add('alert-warning')
+                    col.innerHTML = "Vous n'avez rien perdu et rien gagné"
+                }else if(random === index && random !== 0 && random !== 1  && price != 0)
+                {
+                    col.innerHTML = ""
+                    if(col.classList.contains("alert-warning"))
+                    {
+                      col.classList.remove("alert-warning")
+                    }
+                    if(col.classList.contains("alert-danger"))
+                    {
+                      col.classList.remove("alert-danger")
+                    }
+                    if(col.classList.contains("alert-success"))
+                    {
+                      col.classList.remove("alert-success")
+                    }
+                    col.classList.add('alert')
+                    col.classList.add('alert-success')
+                    col.innerHTML = "Vous avez gagné 35 fois la mise"
+                    valuese += 35 * price
+                    text.innerHTML = valuese +' Fcfa'
+                }else if(index != 0 && index!= 1 && random !== index && price != 0)
+                {
+                    col.innerHTML = ""
+                    if(col.classList.contains("alert-warning"))
+                    {
+                      col.classList.remove("alert-warning")
+                    }
+                    if(col.classList.contains("alert-danger"))
+                    {
+                      col.classList.remove("alert-danger")
+                    }
+                    if(col.classList.contains("alert-success"))
+                    {
+                      col.classList.remove("alert-success")
+                    }
+                    col.classList.add('alert')
+                    col.classList.add('alert-danger')
+                    col.innerHTML = "Vous avez perdu la mise"
+                    valuese = valuese - price
+                    text.innerHTML = valuese +' Fcfa'
+                }
+                else if(index == 0 && random%2==0 && price != 0)
+                {
+                    col.innerHTML = ""
+                    if(col.classList.contains("alert-warning"))
+                    {
+                      col.classList.remove("alert-warning")
+                    }
+                    if(col.classList.contains("alert-danger"))
+                    {
+                      col.classList.remove("alert-danger")
+                    }
+                    if(col.classList.contains("alert-success"))
+                    {
+                      col.classList.remove("alert-success")
+                    }
+                    col.classList.add('alert')
+                    col.classList.add('alert-success')
+                    col.innerHTML = "Vous récupérez la mise plus une fois sa valeur"
+                    valuese += 2 * price
+
+                    text.innerHTML = valuese +' Fcfa'
+                }
+                else if(index == 1 && random%2!=0 && price != 0)
+                {
+                    col.innerHTML = ""
+                    if(col.classList.contains("alert-warning"))
+                    {
+                      col.classList.remove("alert-warning")
+                    }
+                    if(col.classList.contains("alert-danger"))
+                    {
+                      col.classList.remove("alert-danger")
+                    }
+                    if(col.classList.contains("alert-success"))
+                    {
+                      col.classList.remove("alert-success")
+                    }
+                    col.classList.add('alert')
+                    col.classList.add('alert-success')
+                    col.innerHTML = "Vous récupérez la mise plus une fois sa valeur"
+                    valuese += 2 * price
+
+                    text.innerHTML = valuese +' Fcfa'
+                }
+            }
+    }
+    
+    function drawTriangle()
+    {
+            // Get the canvas context the wheel uses.
+            let ctx = theWheel.ctx;
+    
+            ctx.strokeStyle = 'blue';     // Set line colour.
+            ctx.fillStyle   = 'black';     // Set fill colour.
+            ctx.lineWidth   = 2;
+            ctx.beginPath();              // Begin path.
+            ctx.moveTo(170, 5);           // Move to initial position.
+            ctx.lineTo(230, 5);           // Draw lines to make the shape.
+            ctx.lineTo(200, 40);
+            ctx.lineTo(171, 5);
+            ctx.stroke();                 // Complete the path by stroking (draw lines).
+            ctx.fill();                   // Then fill.
+      }
+      </script>
+      <button style="margin-left: 50px" id="bigButton" class="bigButton btn btn-success" onclick="theWheel.startAnimation(); this.disabled=true;">Spin the WheelWin</button>
+      <a href="javascript:void(0);" class="btn btn-danger px-4" onclick="theWheel.rotationAngle=0; theWheel.draw(); bigButton.disabled=false;">Reset the wheel</a>
+      </div>
+
+      <div class="col-sm-2" style="margin-top: 200px; margin-left: 100px">
+        <select class="btn btn-outline-success btn-block">
+            <option value="pair">Pair</option>
+            <option value="impair">Impair</option>
+        </select>
+        <br />
+        <div class="form-group">
+          <input type="number" class="form-control fa fa-wallet" placeholder="FCFA" />
+        </div>
+      </div>
+      <div class="col-sm-2" style="margin-top: 200px;">
+        <h3><i class="fa fa-money" style="font-size:24px; color:black"></i> Somme </h3>
+        <p id="text" style="font-size: 34px; font-weight:bold; color: green; margin-top: 17px;"></p>
+      </div>
+      <div class="col-sm-2" style="margin-top: 200px;">
+        <h3><i class="fa fa-envelope-open" style="font-size:24px; color:black"></i> Alerte </h3>
+        <p id="col" ></p>
+      </div>
+    </div>      
+    </div>
+
+</div> 
+
+
+    <script src="project.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.1/gsap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  </body>
+</html>
